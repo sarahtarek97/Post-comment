@@ -21,9 +21,11 @@
     "mongoose": "^6.0.8",
     "multer": "^1.4.3",
     "nanoid": "^3.1.29",
+    "node-cron": "^3.0.0",
     "nodemailer": "^6.7.0",
     "nodemon": "^2.0.13",
     "pdfkit": "^0.12.3",
-    "rbac": "^5.0.3"
+    "rbac": "^5.0.3",
+    "redis": "^3.1.2"
   }
 }

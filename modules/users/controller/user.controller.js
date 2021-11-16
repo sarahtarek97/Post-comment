@@ -19,8 +19,20 @@ let transporter = nodemailer.createTransport({
   });
 
 const getAllUsers = async (req,res)=>{
-    const user = await User.find({});
-    res.json({message:'users',user:user});
+    let {page,size} = req.query;
+    if(!page){
+        page=1;
+    }
+    if(!size){
+        size=10;
+    }
+    const limit = parseInt(size);
+    const skip = (page-1)*size;
+
+    const user = await User.find({}).limit(limit).skip(skip);
+    const all = await User.count();
+    const totalPages = Math.ceil(all/limit);
+    res.json({message:'users',totalPages,page,size,user:user});
 }
 
 const signup = async (req,res)=>{
