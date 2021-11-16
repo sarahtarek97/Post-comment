@@ -1,7 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
 const Post = require("../model/post.model"); 
 const Comment = require('../../comments/model/comment.model');
-  
+const client = require('../../../common/redis/redis.js')
+
 const getAllPosts= async(req,res)=>{
     let {page,size} = req.query;
     if(!page){
@@ -24,6 +25,7 @@ const getAllPosts= async(req,res)=>{
         const obj = {...doc._doc,comments};
         resultArr.push(obj);
     }
+    client.setex('posts',59,JSON.stringify(resultArr));
     res.json({page:page,size:size,message:'All posts with comments',Data:resultArr});
     
 }
